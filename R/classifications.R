@@ -8,6 +8,26 @@
 #' @export
 'osm_point_polygon_class'
 
+
+#### ----------------------------------------------------
+# Categorization of OSM Features by Functional Categories
+# See: https://wiki.openstreetmap.org/wiki/Map_features
+#### ----------------------------------------------------
+
+# amenity_tags <- fread("data/amenity_tags.csv")
+# st <- amenity_tags$Key %>% whichv("amenity", invert = TRUE) %>% c(fnrow(amenity_tags)+1L)
+# amenity_tags <- lapply(seq_len(length(st)-1L), function(i) ss(amenity_tags, (st[i]+1L):(st[i+1L]-1L), -3L)) %>% setNames(amenity_tags$Key[st[-length(st)]])
+# sum(sapply(amenity_tags, fnrow))
+# rm(st)
+# cat(amenity_tags$Others$Value, sep = ", ")
+#
+#
+# all_tags <- fread("data/all_tags.csv") %>% fsubset(!Key %ilike% "Lua error")
+# all_tags %>% fsubset(Key == "building") %>% get_vars(varying(.)) %>% View()
+# all_tags %>% fsubset(Key == "building", Value) %>% .subset2(1) %>% cat(sep = ", ")
+#
+
+
 # The same, reshuffled a bit to make more economic sense
 osm_point_polygon_class <- list(
   food = list(amenity = .c(bar, cafe, fast_food, food_court, ice_cream, pub, restaurant)),
@@ -114,6 +134,9 @@ osm_point_polygon_class <- list(
                          office = "water_utility")
 )
 
+# Todo: classify from spefic to general: first amenity, craft, sports, leisure, shop, military etc, later more general tags such as office, man_made, building, landuse etc.
+# build iterative algorithm... possibly in python??
+# Also: save classifying tag along with category...
 
 # Ordering according to tag priorities... and likelihood of duplicate matches
 osm_point_polygon_class = colorder(osm_point_polygon_class,
@@ -130,6 +153,24 @@ osm_point_polygon_class = colorder(osm_point_polygon_class,
                                  facilities,
                                  recreation,
                                  office_other, commerical, emergency)
+
+
+# setrelabel(OSM_classification,
+#   food = "Sustenance",
+#   shopping = "Shopping",
+#   education = "Education",
+#   education_alt = "Alternative Education",
+#   transport = "Transportation",
+#   communications = "Communications",
+#   financial = "Financial",
+#   health = "Healthcare",
+#   entertainment = "Entertainment, Arts & Culture",
+#   religion = "Religion",
+#   public_service = "Public Service",
+#   facilities = "Facilities",
+#   waste = "Waste Management"
+# )
+
 
 
 #' Functional Classification of OSM Line Features
