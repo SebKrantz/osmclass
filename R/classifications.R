@@ -32,9 +32,9 @@
 osm_point_polygon_class <- list(
   food = list(amenity = .c(bar, cafe, fast_food, food_court, ice_cream, pub, restaurant)),
   shopping = list(amenity = "marketplace", # TODO: distinguish bigger and smaller, formal vs. informal shopping??
-                  landuse = "retail",
+                  shop = "",
                   building = .c(retail, kiosk, supermarket, warehouse),
-                  shop = ""), # .c(department_store, mall, supermarket, wholesale)
+                  landuse = "retail"), # .c(department_store, mall, supermarket, wholesale)
   craft = list(craft = ""),
   education = list(amenity = .c(college, school, university),
                    building = .c(college, school, university),
@@ -49,16 +49,16 @@ osm_point_polygon_class <- list(
                                 car_wash, compressed_air, vehicle_inspection, charging_station, ferry_terminal, fuel, grit_bin, motorcycle_parking, parking,
                                 parking_entrance, parking_space, taxi),
                    highway = .c(crossing, mini_roundabout, motorway_junction, traffic_signals, turning_circle, turning_loop, bus_stop, services, speed_camera),
-                   building = .c(train_station, transportation, bridge),
-                   man_made = .c(bridge, goods_conveyor),
-                   office = .c(logistics, moving_company),
                    railway = "",
                    aerialway = "",
                    waterway = "", # Be more specific? But probably rare tag in Africa anyway...
                    aeroway = "",
                    public_transport = "",
                    bridge = "",
-                   junction = ""),
+                   junction = "",
+                   office = .c(logistics, moving_company),
+                   man_made = .c(bridge, goods_conveyor),
+                   building = .c(train_station, transportation, bridge)),
   storage = list(man_made = .c(silo, storage_tank),
                  building = .c(hangar, hut, shed, storage_tank, silo),
                  landuse = "depot"),
@@ -66,8 +66,8 @@ osm_point_polygon_class <- list(
                         telecom = "",
                         communication ="", # regrex/startsWith(), e.g. communication:mobile_phone =
                         man_made = .c(antenna, beacon, communications_tower, lighthouse, satellite_dish), # telescope
-                        "tower:type" = .c(communication, radar),
-                        office = "telecommunication"), # mast
+                        office = "telecommunication", # mast
+                        "tower:type" = .c(communication, radar)),
   accommodation = list(tourism = .c(apartment, chalet, guest_house, hostel, hotel, motel, wilderness_hut, camp_pitch, camp_site),
                        building = "hotel"),
   tourism = list(tourism = "",
@@ -87,8 +87,8 @@ osm_point_polygon_class <- list(
   construction = list(landuse = "construction",
                       # man_made = "crane", # A stationary, permanent crane. So not really for construction...
                       building = "construction"), # TODO: save start_date: The (approximated) date when the building was finished!!!
-  residential = list(landuse = "residential",
-                     building = .c(house, apartments, bungalow, detached, semidetached_house, terrace, dormitory, residential)),
+  residential = list(building = .c(house, apartments, bungalow, detached, semidetached_house, terrace, dormitory, residential),
+                     landuse = "residential"),
   farming = list(landuse = .c(farmland, farmyard, orchard, vineyard, aquaculture, salt_pond, greenhouse_horticulture, plant_nursery),
                  building = .c(farm, barn, conservatory, cowshed, farm_auxiliary, greenhouse, slurry_tank, stable, sty),
                  man_made = "beehive"),
@@ -99,9 +99,9 @@ osm_point_polygon_class <- list(
                 sport = "",
                 building = .c(grandstand, pavilion, riding_hall, sports_hall, stadium)),
   recreation = list(amenity = .c(community_centre, fountain, public_bath, public_bookcase, social_centre),
+                    leisure = .c(beach_resort, marina, miniature_golf, common, park, dog_park, water_park, nature_reserve, picnic_table, fishing, garden, playground, swimming_area),
                     landuse = "recreation_ground",
-                    building = "civic", # Very general tag, match last...
-                    leisure = .c(beach_resort, marina, miniature_golf, common, park, dog_park, water_park, nature_reserve, picnic_table, fishing, garden, playground, swimming_area)),
+                    building = "civic"), # Very general tag, match last...
   historic = list(historic = ""),
   religion = list(amenity = .c(funeral_hall, crematorium, grave_yard, monastery, place_of_mourning, place_of_worship),
                   building = .c(cathedral, chapel, church, kingdom_hall, monastery, mosque, presbytery, shrine, synagogue, temple, religious),
@@ -109,14 +109,14 @@ osm_point_polygon_class <- list(
                   landuse = "religious",
                   religion = "",
                   denomination = ""),
-  institutional = list(landuse = "institutional",
-                       office = .c(government, ngo, association, diplomatic, political_party),
-                       building = "government"),
+  institutional = list(office = .c(government, ngo, association, diplomatic, political_party),
+                       building = "government",
+                       landuse = "institutional"),
   military = list(landuse = "military",
                   military = "",
                   building = .c(military, barracks, bunker)),
-  office_other = list(building = "office",
-                      office = ""),
+  office_other = list(office = "",
+                      building = "office"),
   public_service = list(amenity = .c(courthouse, fire_station, police, post_box, post_depot, post_office, prison, ranger_station, townhall, public_building),
                         building = .c(fire_station,  public)), # public also more general tag, but fits quite well...
   facilities = list(amenity = .c(bbq, bench, dog_toilet, childcare, clock, photo_booth, kitchen, dressing_room, drinking_water, give_box, parcel_locker,
@@ -126,12 +126,12 @@ osm_point_polygon_class <- list(
                building = "transformer_tower"),
   waste = list(amenity = .c(sanitary_dump_station, recycling, waste_basket, waste_disposal, waste_transfer_station),
                water = 	"wastewater",
-               landuse = "landfill",
-               man_made = "wastewater_plant"),
+               man_made = "wastewater_plant",
+               landuse = "landfill"),
   utilities_other = list(man_made = .c(water_tower, water_well, water_works, gasometer, pipeline, pump, pumping_rig, pumping_station, reservoir_covered, street_cabinet),
                          water = "reservoir",
-                         building = .c(digester, service, water_tower),
-                         office = "water_utility")
+                         office = "water_utility",
+                         building = .c(digester, service, water_tower))
 )
 
 # Todo: classify from spefic to general: first amenity, craft, sports, leisure, shop, military etc, later more general tags such as office, man_made, building, landuse etc.
