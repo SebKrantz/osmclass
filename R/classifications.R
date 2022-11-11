@@ -91,6 +91,7 @@ osm_point_polygon_class_uo <- list(
                       building = "construction", # TODO: save start_date: The (approximated) date when the building was finished!!!
                       landuse = "construction"),
   residential = list(building = .c(house, apartments, bungalow, detached, semidetached_house, terrace, dormitory, residential),
+                     "building:use" = .c(residential, apartments),
                      landuse = "residential"),
   farming = list(place = "farm",
                  man_made = "beehive",
@@ -138,7 +139,8 @@ osm_point_polygon_class_uo <- list(
                                        pipeline, pump, pumping_rig, pumping_station, reservoir_covered, street_cabinet),
                          water = "reservoir",
                          office = "water_utility",
-                         building = .c(digester, service, water_tower))
+                         building = .c(digester, service, water_tower),
+                         landuse = "reservoir")
 )
 
 # Todo: classify from spefic to general: first amenity, craft, sports, leisure, shop, military etc, later more general tags such as office, man_made, building, landuse etc.
