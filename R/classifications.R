@@ -65,9 +65,9 @@ osm_point_polygon_class <- list(
   communications = list(amenity = .c(internet_cafe, telephone),
                         telecom = "",
                         communication ="", # regrex/startsWith(), e.g. communication:mobile_phone =
-                        man_made = .c(antenna, beacon, communications_tower, lighthouse, satellite_dish), # telescope
+                        man_made = .c(antenna, beacon, communication_tower, communications_tower, lighthouse, satellite_dish), # telescope
                         office = "telecommunication", # mast
-                        "tower:type" = .c(communication, radar)),
+                        "tower:type" = .c(communication, telecommunication, radar, radio, radio_transmitter)),
   accommodation = list(tourism = .c(apartment, chalet, guest_house, hostel, hotel, motel, wilderness_hut, camp_pitch, camp_site),
                        building = "hotel"),
   tourism = list(tourism = "",
@@ -123,7 +123,8 @@ osm_point_polygon_class <- list(
                                  shelter, shower, toilets, water_point, watering_place, refugee_site, vending_machine),
                     building = "toilets"),
   power = list(power = "",
-               building = "transformer_tower"),
+               building = "transformer_tower",
+               "tower:type" = "power"),
   waste = list(amenity = .c(sanitary_dump_station, recycling, waste_basket, waste_disposal, waste_transfer_station),
                water = 	"wastewater",
                man_made = "wastewater_plant",
