@@ -34,6 +34,7 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
       x[1L:(n/2L) * 2L - 1L]
     })
   }
+  return(res)
 }
 
 #' Extract Tags and Values as Columns from an OSM PBF Data
