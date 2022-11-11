@@ -11,8 +11,9 @@ osm_classify(data, classification)
 
 \item{classification}{a 2-level nested list providing a classification. The layers of the list are:
 \tabular{ll}{
-  categories \tab a list of tags and values that make up a feature category \cr
-  tags \tab a character vector of tag values to match on, or \code{""} to match all possible tags
+  categories \tab a list of tags and values that make up a feature category \cr\cr\cr
+  tags \tab a character vector of tag values to match on, or \code{""} to match all possible tag values.
+  It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}. \cr
 }}
 }
 \description{

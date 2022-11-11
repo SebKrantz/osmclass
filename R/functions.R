@@ -1,7 +1,7 @@
 #' Classify OSM Features
 #' @noRd
 #' @importFrom data.table %chin%
-#' @importFrom collapse .c setv alloc fnobs fnrow %-=% qDT whichNA add_vars add_vars<- colorder anyv
+#' @importFrom collapse .c setv alloc fnobs fnrow %-=% qDT whichv whichNA add_vars add_vars<- colorder anyv
 #' @importFrom stringi stri_detect_fixed stri_extract_first_regex
 NULL
 
@@ -14,6 +14,7 @@ NULL
 #' @param \dots further arguments to \code{\link{strsplit}}.
 #' @export
 osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
+  if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
   if(values) {
     xx = substr(x, 2L, nchar(x) - 1L)
     x_spl = strsplit(xx, split, ...)
@@ -44,12 +45,14 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
 #' @export
 osm_tags_df <- function(data, tags, na.prop = 0) {
   n <- fnrow(data)
+  if(!is.character(tags)) stop("tags needs to be a character vector")
   res <- .subset(data, names(data) %in% tags)
   if(length(res)) {
     if(any(miss <- fnobs(res) < n * na.prop)) res <- res[!miss]
     oth_tg <- setdiff(tags, names(res))
   } else oth_tg <- tags
   other_tags <- data$other_tags
+  if(is.null(other_tags)) stop("data needs to have other_tags column with OSM PBF formatting")
   if(length(other_tags) && length(oth_tg)) {
     for (tag in oth_tg) {
       tag_str <- paste0('"', tag, '"=>')
@@ -67,12 +70,27 @@ osm_tags_df <- function(data, tags, na.prop = 0) {
 }
 
 
+which_tag_values <- function(tag_value, value) {
+  if(length(value) > 1L) {
+    neg <- startsWith(value, "!")
+    if(any(neg)) {
+      if(!all(neg)) stop('Tag values need to be either all positive or all negative or "" to match all values')
+      return(whichv(is.na(tag_value) | tag_value %chin% substr(value, 2L, 1000L), FALSE))
+    }
+    return(which(tag_value %chin% value)) # TODO: subset non-missing first increases performance??
+  }
+  if(value == "") return(whichNA(tag_value, invert = TRUE)) # This is if all values of the tag are matched
+  if(startsWith(value, "!")) return(which(tag_value != substr(value, 2L, 1000L))) # cannot use whichv() because need to skip NAs
+  whichv(tag_value, value)
+}
+
 #' Classify OSM Features
 #' @param data imported layer from an OSM PBF file.
 #' @param classification a 2-level nested list providing a classification. The layers of the list are:
 #' \tabular{ll}{
-#'   categories \tab a list of tags and values that make up a feature category \cr
-#'   tags \tab a character vector of tag values to match on, or \code{""} to match all possible tags
+#'   categories \tab a list of tags and values that make up a feature category \cr\cr\cr
+#'   tags \tab a character vector of tag values to match on, or \code{""} to match all possible tag values.
+#'   It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}. \cr
 #' }
 #' @examples
 #' str(osm_line_class)
@@ -90,7 +108,7 @@ osm_classify <- function(data, classification) {
                     alt_cats = alloc("", n),
                     alt_tags_values = alloc("", n))
   other_tags <- data$other_tags
-  if(is.null(other_tags)) stop("data needs to have other_tags column with OSM formatting")
+  if(is.null(other_tags)) stop("data needs to have other_tags column with OSM PBF formatting")
   classified <- alloc(FALSE, n)
   nam_class <- names(classification)
   if(!is.list(classification) || is.null(nam_class)) stop("classification needs to be a named list of categories")
@@ -109,9 +127,7 @@ osm_classify <- function(data, classification) {
 
       if(anyv(nam, tag)) { # If the tag has a separate column
         tag_value <- .subset2(data, tag)
-        has_tag <- if(length(value) == 1L && value == "") # This is if all values of the tag are matched
-          whichNA(tag_value, invert = TRUE) else
-            which(tag_value %chin% value) # TODO: subset first increases performance??
+        has_tag <- which_tag_values(tag_value, value)
       } else { # If the tag is stored in other_tags
         tag_str <- paste0('"', tag, '"=>')
         has_tag <- which(stri_detect_fixed(other_tags, tag_str)) # which removes missing values...
@@ -119,7 +135,7 @@ osm_classify <- function(data, classification) {
         tag_value <- stri_extract_first_regex(other_tags[has_tag], paste0(tag_str, '".*?"'))
         tag_value <- substr(tag_value, nchar(tag_str) + 2L, nchar(tag_value) %-=% 1L)
         if(!(length(value) == 1L && value == "")) {  # If the tag has specific values to be matched
-          matches <- tag_value %chin% value
+          matches <- which_tag_values(tag_value, value)
           has_tag <- has_tag[matches]
           tag_value <- tag_value[matches]
         }
@@ -136,8 +152,8 @@ osm_classify <- function(data, classification) {
         has_tag_class <- has_tag[class_has_tag] # These are the already classified ones
         setv(class_res[4:5], has_tag_class,
              list(paste(class_res[[4L]][has_tag_class], cat, sep = ", "), # Would be great to be able to do this by reference.
-                  paste0(class_res[[5L]][has_tag_class], ", ", tag, ":'",
-                         if(length(tag_value) == n) tag_value[has_tag_class] else tag_value[class_has_tag], "'")), vind1 = TRUE)
+                  paste0(class_res[[5L]][has_tag_class], ", ", tag, ':"',
+                         if(length(tag_value) == n) tag_value[has_tag_class] else tag_value[class_has_tag], '"')), vind1 = TRUE)
       }
       setv(classified, has_tag, TRUE, vind1 = TRUE)
     }
@@ -146,6 +162,7 @@ osm_classify <- function(data, classification) {
   add_vars(class_res, "front") <- classified
   return(qDT(class_res))
 }
+
 
 # Experimental stuff...
 

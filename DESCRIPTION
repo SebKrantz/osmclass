@@ -4,7 +4,7 @@ Title: Classify Open Street Map Features
 Version: 0.1.0
 Authors@R: person("Sebastian", "Krantz", role = c("aut", "cre"), 
                   email = "sebastian.krantz@graduateinstitute.ch")
-Description: Functions to help classify Open Street Map Features in OSM files imported from OSM PFB format. 
+Description: Functions to help classify Open Street Map Features in OSM files imported from OSM PBF format. 
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
