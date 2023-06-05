@@ -60,7 +60,7 @@ osm_point_polygon_class_uo <- list(
                    man_made = .c(bridge, goods_conveyor),
                    building = .c(train_station, transportation, bridge)),
   storage = list(man_made = .c(silo, storage_tank),
-                 building = .c(hangar, hut, shed, storage_tank, silo),
+                 building = .c(hangar, storage_tank, silo), # hut, shed, : In Africa: huts and sheds are residential buildings... better exclude...
                  landuse = "depot"),
   communications = list(amenity = .c(internet_cafe, telephone),
                         telecom = "",
@@ -159,7 +159,7 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
                                  shopping, # Needs to be after tourism, and before financial, as many shops have mobile money agents...
                                  financial,
                                  religion, construction,
-                                 residential, historic, # Todo: historic earlier ? e.g. historic mines etc.. needs to be after tourism though..
+                                 residential, historic, # Todo: historic earlier ? e.g. historic mines etc.. needs to be after tourism though.. and historic mines may also be useful for economic development
                                  waste,
                                  office_other,
                                  commerical,
@@ -203,16 +203,15 @@ osm_line_class <- list(
   road = list(highway = .c(motorway, motorway_link, trunk, trunk_link, primary, primary_link, secondary, secondary_link, tertiary, tertiary_link)),
   # residential, living_street, service, construction)), # road, cycleway, unclassififed
   railway = list(railway = ""),
-  waterway = list(waterway = c("river", ""),
-                  natural = "water", water = "", man_made = .c(water_works, reservoir_covered, water_tower)),
+  waterway = list(waterway = c("!waterfall", "!stream", "!stream_end", "!wadi", "!rapids", "!tidal_channel", "!riverbank", "!yes"), # Getting rid of natural features...
+                  water = "!yes", man_made = .c(water_works, reservoir_covered, water_tower)),
   power = list(power = ""),
-  telecom = list(telecom = ""),
-  storage = list(man_made = .c(silo, storage_tank),
-                 building = .c(hangar, hut, shed, storage_tank, silo),
-                 landuse = "depot"),
+  telecom = list(telecom = "",
+                 communication = ""), # regrex/startsWith(), e.g. communication:mobile_phone =
+  storage = list(man_made = .c(silo, storage_tank)),
   # public_transport = list(public_transport = ""), # Basically not existent.
   boundary = list(boundary = .c(national_park, protected_area, special_economic_zone)), # See SEZ Database.
-  route = list(route = "")
+  ferry = list(route = "ferry")
 )
 
 
