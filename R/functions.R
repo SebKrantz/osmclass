@@ -1,7 +1,7 @@
 #' Classify OSM Features
 #' @noRd
 #' @importFrom data.table %chin%
-#' @importFrom collapse .c setv alloc fnobs fnrow %-=% qDT whichv whichNA add_vars add_vars<- colorder anyv
+#' @importFrom collapse vlengths .c setv alloc fnobs fnrow %-=% qDT whichv whichNA add_vars add_vars<- colorder anyv
 #' @importFrom stringi stri_detect_fixed stri_extract_first_regex
 NULL
 
@@ -16,7 +16,7 @@ NULL
 osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
   if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
   if(values) {
-    xx = substr(x, 2L, nchar(x) - 1L)
+    xx = substr(x, 2L, vlengths(x) %-=% 1L)
     x_spl = strsplit(xx, split, ...)
     res = lapply(x_spl, function(x) {
       n = length(x)
@@ -59,7 +59,7 @@ osm_tags_df <- function(data, tags, na.prop = 0) {
       has_tag <- which(stri_detect_fixed(other_tags, tag_str)) # which removes missing values...
       if(length(has_tag) == 0L || length(has_tag) < n * na.prop) next
       tag_value <- stri_extract_first_regex(other_tags[has_tag], paste0(tag_str, '".*?"'))
-      tag_value <- substr(tag_value, nchar(tag_str) + 2L, nchar(tag_value) %-=% 1L)
+      tag_value <- substr(tag_value, nchar(tag_str) + 2L, vlengths(tag_value) %-=% 1L)
       res_tag <- alloc(NA_character_, n)
       setv(res_tag, has_tag, tag_value, vind1 = TRUE)
       res[[tag]] <- res_tag
@@ -133,7 +133,7 @@ osm_classify <- function(data, classification) {
         has_tag <- which(stri_detect_fixed(other_tags, tag_str)) # which removes missing values...
         if(length(has_tag) == 0L) next
         tag_value <- stri_extract_first_regex(other_tags[has_tag], paste0(tag_str, '".*?"'))
-        tag_value <- substr(tag_value, nchar(tag_str) + 2L, nchar(tag_value) %-=% 1L)
+        tag_value <- substr(tag_value, nchar(tag_str) + 2L, vlengths(tag_value) %-=% 1L)
         if(!(length(value) == 1L && value == "")) {  # If the tag has specific values to be matched
           matches <- which_tag_values(tag_value, value)
           has_tag <- has_tag[matches]
