@@ -105,11 +105,11 @@ osm_classify <- function(data, classification) {
   class_res <- list(main_cat = alloc(NA_character_, n),
                     main_tag = alloc(NA_character_, n),
                     main_tag_value = alloc(NA_character_, n),
-                    alt_cats = alloc("", n),
-                    alt_tags_values = alloc("", n))
+                    alt_cats = character(n),
+                    alt_tags_values = character(n))
   other_tags <- data$other_tags
-  if(is.null(other_tags)) stop("data needs to have other_tags column with OSM PBF formatting")
-  classified <- alloc(FALSE, n)
+  if(is.null(other_tags)) stop("data needs to have 'other_tags' column with OSM PBF formatting")
+  classified <- logical(n)
   nam_class <- names(classification)
   if(!is.list(classification) || is.null(nam_class)) stop("classification needs to be a named list of categories")
 
