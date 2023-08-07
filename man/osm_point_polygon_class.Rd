@@ -12,6 +12,7 @@ osm_point_polygon_class
 }
 \description{
 A nested list proposing a classification of OSM point and polygons into 33 functional categories.
+It was developed to accurately classify OSM features in Africa, see Krantz (2023).
 }
 \examples{
 collapse::unlist2d(osm_point_polygon_class, idcols = c("category", "tag"))

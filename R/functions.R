@@ -1,13 +1,39 @@
-#' Classify OSM Features
-#' @noRd
+#' Classify Open Street Map Features
+#'
+#' An R package to classify Open Street Map (OSM) features into meaningful functional or analytical categories.
+#' It expects OSM PBF data, e.g. from https://download.geofabrik.de/, imported as \emph{sf} data frames, and
+#' is well optimized to deal with large quantities of such data. \cr\cr
+#'
+#' @section Functions:
+#' Main Function to Classify OSM Features
+#'
+#' \code{\link[=osm_classify]{osm_classify()}}
+#'
+#' Auxiliary Functions to Extract Information (Tags) from OSM PBF Layers
+#'
+#' \code{\link[=osm_other_tags_list]{osm_other_tags_list()}}\cr
+#' \code{\link[=osm_tags_df]{osm_tags_df()}}\cr\cr
+#'
+#' @section Classifications:
+#' Suggested OSM Classsification, developed for the Africa OSM Following Krantz (2023)
+#'
+#' \code{\link{osm_point_polygon_class}}\cr
+#' \code{\link{osm_line_class}}\cr
+#' \code{\link{osm_line_info_tags}}
+#'
+#' @docType package
+#' @name osmclass-package
+#' @aliases osmclass
+#'
 #' @importFrom data.table %chin%
 #' @importFrom collapse vlengths .c setv alloc fnobs fnrow %-=% qDT whichv whichNA add_vars add_vars<- colorder anyv
 #' @importFrom stringi stri_detect_fixed stri_extract_first_regex
 NULL
 
+
 # Functions to explore other tags column
 
-#' Generate list of 'other_tags' Column in OSM PBF Data
+#' Generate a List from the 'other_tags' Column in OSM PBF Data
 #' @param x character. The 'other_tags' column of an imported osm.pbf file.
 #' @param values logical. \code{TRUE} also includes the values of tags.
 #' @param split character. Pattern passed to \code{\link{strsplit}} to split up \code{x}.

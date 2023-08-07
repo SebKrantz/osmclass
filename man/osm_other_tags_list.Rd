@@ -2,7 +2,7 @@
 % Please edit documentation in R/functions.R
 \name{osm_other_tags_list}
 \alias{osm_other_tags_list}
-\title{Generate list of 'other_tags' Column in OSM PBF Data}
+\title{Generate a List from the 'other_tags' Column in OSM PBF Data}
 \usage{
 osm_other_tags_list(x, values = FALSE, split = "\\",\\"|\\"=>\\"", ...)
 }
@@ -16,5 +16,5 @@ osm_other_tags_list(x, values = FALSE, split = "\\",\\"|\\"=>\\"", ...)
 \item{\dots}{further arguments to \code{\link{strsplit}}.}
 }
 \description{
-Generate list of 'other_tags' Column in OSM PBF Data
+Generate a List from the 'other_tags' Column in OSM PBF Data
 }
