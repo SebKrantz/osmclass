@@ -1,34 +1,20 @@
+#### -------------------------------------------------------
+# Categorization of OSM Features by Functional Categories
+# See: https://wiki.openstreetmap.org/wiki/Map_features
+# Developed to Minimize Overlap/Missclassification in Africa
+#### -------------------------------------------------------
 
 
 #' Functional Classification of OSM Points and Polygon Features
 #'
 #' A nested list proposing a classification of OSM point and polygons into 33 functional categories.
+#' It was developed to accurately classify OSM features in Africa, see Krantz (2023).
 #' @examples
 #' collapse::unlist2d(osm_point_polygon_class, idcols = c("category", "tag"))
 #' @export
 'osm_point_polygon_class'
 
 
-#### ----------------------------------------------------
-# Categorization of OSM Features by Functional Categories
-# See: https://wiki.openstreetmap.org/wiki/Map_features
-#### ----------------------------------------------------
-
-# amenity_tags <- fread("data/amenity_tags.csv")
-# st <- amenity_tags$Key %>% whichv("amenity", invert = TRUE) %>% c(fnrow(amenity_tags)+1L)
-# amenity_tags <- lapply(seq_len(length(st)-1L), function(i) ss(amenity_tags, (st[i]+1L):(st[i+1L]-1L), -3L)) %>% setNames(amenity_tags$Key[st[-length(st)]])
-# sum(sapply(amenity_tags, fnrow))
-# rm(st)
-# cat(amenity_tags$Others$Value, sep = ", ")
-#
-#
-# all_tags <- fread("data/all_tags.csv") %>% fsubset(!Key %ilike% "Lua error")
-# all_tags %>% fsubset(Key == "building") %>% get_vars(varying(.)) %>% View()
-# all_tags %>% fsubset(Key == "building", Value) %>% .subset2(1) %>% cat(sep = ", ")
-#
-
-
-# The same, reshuffled a bit to make more economic sense
 osm_point_polygon_class_uo <- list(
   food = list(amenity = .c(bar, cafe, fast_food, food_court, ice_cream, pub, restaurant)),
   shopping = list(amenity = .c(marketplace, shop), # TODO: distinguish bigger and smaller, formal vs. informal shopping??
@@ -143,9 +129,6 @@ osm_point_polygon_class_uo <- list(
                          landuse = "reservoir")
 )
 
-# Todo: classify from spefic to general: first amenity, craft, sports, leisure, shop, military etc, later more general tags such as office, man_made, building, landuse etc.
-# build iterative algorithm... possibly in python??
-# Also: save classifying tag along with category...
 
 # Ordering according to tag priorities... and likelihood of duplicate matches
 osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
@@ -167,23 +150,6 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
                                  recreation,
                                  facilities,
                                  emergency)
-
-
-# setrelabel(OSM_classification,
-#   food = "Sustenance",
-#   shopping = "Shopping",
-#   education = "Education",
-#   education_alt = "Alternative Education",
-#   transport = "Transportation",
-#   communications = "Communications",
-#   financial = "Financial",
-#   health = "Healthcare",
-#   entertainment = "Entertainment, Arts & Culture",
-#   religion = "Religion",
-#   public_service = "Public Service",
-#   facilities = "Facilities",
-#   waste = "Waste Management"
-# )
 
 
 
@@ -241,4 +207,4 @@ osm_line_info_tags_special <- list(
 
 osm_line_info_tags = lapply(osm_line_info_tags_special,
                             function(x) unique(c(.c(type, ref, name, description, operator, usage, service, capacity, man_made), x,
-                                                     .c(length, width, location, origin, place:origin, destination, place:destination, start_date, end_date))))
+                                                 .c(length, width, location, origin, place:origin, destination, place:destination, start_date, end_date))))
