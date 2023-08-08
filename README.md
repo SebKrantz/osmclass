@@ -1,6 +1,8 @@
 # osmclass
 
-Functions to help classify Open Street Map (OSM) features into meaningful functional or analytical categories. Designed for OSM PBF files, e.g. from <https://download.geofabrik.de/>, imported as spatial data frames using `sf::st_read()`. A classification consists of a list of categories which are related to certain OSM tags and values - also specified as a list. Given a layer from an OSM PBF file and a classification, the main `osm_classify()` function returns a classification data frame giving, for each feature, the primary and alternative categories (if there is overlap), and the tag(s) and value(s) matched on. The package also contains a suggested classification of point/polygon features into 33 economically meaningful categories, and of lines into 11 categories, based on <Krantz (2023)>
+**Functions to classify Open Street Map (OSM) features into meaningful functional or analytical categories**
+
+Designed for OSM PBF files, e.g. from <https://download.geofabrik.de/>, imported as spatial data frames using `sf::st_read()`. A classification consists of a list of categories which are related to certain OSM tags and values, also specified as a list. Given a layer from an OSM PBF file and a classification, the main `osm_classify()` function returns a classification data frame giving, for each feature, the primary and alternative categories (if there is overlap), and the tag(s) and value(s) matched on. The package also contains a suggested classification of point/polygon features into 33 economically meaningful categories, and of lines into 11 categories, based on <Krantz (2023)>
 
 
 ### Usage Example
