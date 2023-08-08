@@ -24,7 +24,7 @@ Auxiliary Functions to Extract Information (Tags) from OSM PBF Layers
 
 \section{Classifications}{
 
-Suggested OSM Classsification, developed for the Africa OSM Following Krantz (2023)
+Suggested OSM Classification, developed for the Africa OSM Following Krantz (2023)
 
 \code{\link{osm_point_polygon_class}}\cr
 \code{\link{osm_line_class}}\cr
