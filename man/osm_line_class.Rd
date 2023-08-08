@@ -16,4 +16,7 @@ A nested list proposing a classification of OSM lines into 11 functional categor
 \examples{
 collapse::unlist2d(osm_line_class, idcols = c("category", "tag"))
 }
+\seealso{
+\link{osmclass-package}
+}
 \keyword{datasets}

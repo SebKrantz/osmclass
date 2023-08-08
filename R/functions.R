@@ -111,6 +111,12 @@ NULL
 #' @param values logical. \code{TRUE} also includes the values of tags.
 #' @param split character. Pattern passed to \code{\link{strsplit}} to split up \code{x}.
 #' @param \dots further arguments to \code{\link{strsplit}}.
+#'
+#' @returns a list of tags as character vectors, or a nested list of tags and values if \code{values = TRUE}.
+#' @seealso \link{osmclass-package}
+#' @examples
+#' # See Examples at ?osmclass
+#'
 #' @export
 osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
   if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
@@ -137,10 +143,15 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
   return(res)
 }
 
-#' Extract Tags and Values as Columns from an OSM PBF Data
-#' @param data an imported layer from an OSM PBF file.
+#' Extract Tags as Columns from an OSM PBF Layer
+#' @param data an imported layer from an OSM PBF file. Usually has a few important tags already expanded as columns, and an 'other_tags' column which compounds less frequent tags as character strings.
 #' @param tags character. A vector of tags to extract as columns.
 #' @param na.prop double. Proportion of features having a tag in order to keep the column.
+#'
+#' @returns a \emph{data.table} with the supplied \code{tags} as columns, and the same number of rows as the input frame.
+#' @seealso \link{osmclass-package}
+#' @examples
+#' # See Examples at ?osmclass
 #' @export
 osm_tags_df <- function(data, tags, na.prop = 0) {
   n <- fnrow(data)
@@ -184,18 +195,31 @@ which_tag_values <- function(tag_value, value) {
 }
 
 #' Classify OSM Features
-#' @param data imported layer from an OSM PBF file.
-#' @param classification a 2-level nested list providing a classification. The layers of the list are:
-#' \tabular{ll}{
-#'   categories \tab a list of tags and values that make up a feature category \cr\cr\cr
-#'   tags \tab a character vector of tag values to match on, or \code{""} to match all possible tag values.
-#'   It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}. \cr
+#'
+#' Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification scheme.
+#' @param data imported layer from an OSM PBF file. Usually an 'sf' data frame, but the geometry column is unnecessary. Importantly, the data frame should have an 'other_tags' column with OSM PBF formatting.
+#' @param classification a 2-level nested list providing a classification scheme. The layers of the list are:
+#' \tabular{lll}{
+#'   \emph{categories} \tab\tab a list of tags and matched values that constitute a feature category. \cr\cr\cr
+#'   \emph{tags} \tab\tab a character vector of tag values to match, or \code{""} to match all possible values.
+#'   It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}.
+#'   Obviously, it is not sensible to mix negation with other specifications. \cr
 #' }
+#' See \code{\link{osm_point_polygon_class}} and \code{\link{osm_line_class}} for example classifications.
 #' @note
-#' It is not necessary to expand the 'other_tags' column, e.g. using \code{\link{osm_tags_df}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
+#' It is not necessary to expand the 'other_tags' column, e.g. using \code{\link[=osm_tags_df]{osm_tags_df()}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
+#'
+#' @returns
+#'  a \emph{data.table} with rows matching the input frame and columns
+#'  \item{classified}{logical. Whether the feature was classified i.e. matched by any tag-value in the \code{classification}. }
+#'  \item{main_cat}{character. The first category the feature was assigned to, depending on the order of categories in the \code{classification}. }
+#'  \item{main_tag}{character. The tag matched for the main category. }
+#'  \item{main_tag_value}{character. The value matched on. }
+#'  \item{alt_cats}{character. Alternative (secondary) categories assigned, comma-separated if multiple. }
+#'  \item{alt_tags_values}{character. The tags and double-quoted values matched for secondary categories, comma-separated if multiple.}
+#' @seealso \link{osmclass-package}
 #' @examples
-#' str(osm_line_class)
-#' str(osm_point_polygon_class)
+#' # See Examples at ?osmclass
 #' @export
 osm_classify <- function(data, classification) {
 

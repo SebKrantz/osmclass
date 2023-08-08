@@ -15,6 +15,16 @@ osm_other_tags_list(x, values = FALSE, split = "\\",\\"|\\"=>\\"", ...)
 
 \item{\dots}{further arguments to \code{\link{strsplit}}.}
 }
+\value{
+a list of tags as character vectors, or a nested list of tags and values if \code{values = TRUE}.
+}
 \description{
 Generate a List from the 'other_tags' Column in OSM PBF Data
+}
+\examples{
+# See Examples at ?osmclass
+
+}
+\seealso{
+\link{osmclass-package}
 }

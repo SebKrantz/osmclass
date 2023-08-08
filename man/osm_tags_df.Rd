@@ -2,17 +2,26 @@
 % Please edit documentation in R/functions.R
 \name{osm_tags_df}
 \alias{osm_tags_df}
-\title{Extract Tags and Values as Columns from an OSM PBF Data}
+\title{Extract Tags as Columns from an OSM PBF Layer}
 \usage{
 osm_tags_df(data, tags, na.prop = 0)
 }
 \arguments{
-\item{data}{an imported layer from an OSM PBF file.}
+\item{data}{an imported layer from an OSM PBF file. Usually has a few important tags already expanded as columns, and an 'other_tags' column which compounds less frequent tags as character strings.}
 
 \item{tags}{character. A vector of tags to extract as columns.}
 
 \item{na.prop}{double. Proportion of features having a tag in order to keep the column.}
 }
+\value{
+a \emph{data.table} with the supplied \code{tags} as columns, and the same number of rows as the input frame.
+}
 \description{
-Extract Tags and Values as Columns from an OSM PBF Data
+Extract Tags as Columns from an OSM PBF Layer
+}
+\examples{
+# See Examples at ?osmclass
+}
+\seealso{
+\link{osmclass-package}
 }

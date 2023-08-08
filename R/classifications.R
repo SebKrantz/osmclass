@@ -8,7 +8,10 @@
 #' Functional Classification of OSM Points and Polygon Features
 #'
 #' A nested list proposing a classification of OSM point and polygons into 33 functional categories.
-#' It was developed to accurately classify OSM features in Africa, see Krantz (2023).
+#' It was developed to accurately classify OSM features in Africa, i.e. the tags and the order of categories in the list
+#' are optimized to assign the most sensible primary category to most features, see Krantz (2023).
+#'
+#' @seealso \link{osmclass-package}
 #' @examples
 #' collapse::unlist2d(osm_point_polygon_class, idcols = c("category", "tag"))
 #' @export
@@ -156,6 +159,8 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
 #' Functional Classification of OSM Line Features
 #'
 #' A nested list proposing a classification of OSM lines into 11 functional categories.
+#'
+#' @seealso \link{osmclass-package}
 #' @examples
 #' collapse::unlist2d(osm_line_class, idcols = c("category", "tag"))
 #' @export
@@ -184,6 +189,8 @@ osm_line_class <- list(
 #' Further tags of Interest for Line Features
 #'
 #' Further tags that max be of interested to extract for OSM line features.
+#'
+#' @seealso \link{osmclass-package}
 #' @examples
 #' collapse::unlist2d(osm_line_info_tags, idcols = "category")
 #' @export

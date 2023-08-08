@@ -7,22 +7,35 @@
 osm_classify(data, classification)
 }
 \arguments{
-\item{data}{imported layer from an OSM PBF file.}
+\item{data}{imported layer from an OSM PBF file. Usually an 'sf' data frame, but the geometry column is unnecessary. Importantly, the data frame should have an 'other_tags' column with OSM PBF formatting.}
 
-\item{classification}{a 2-level nested list providing a classification. The layers of the list are:
-\tabular{ll}{
-  categories \tab a list of tags and values that make up a feature category \cr\cr\cr
-  tags \tab a character vector of tag values to match on, or \code{""} to match all possible tag values.
-  It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}. \cr
-}}
+\item{classification}{a 2-level nested list providing a classification scheme. The layers of the list are:
+\tabular{lll}{
+  \emph{categories} \tab\tab a list of tags and matched values that constitute a feature category. \cr\cr\cr
+  \emph{tags} \tab\tab a character vector of tag values to match, or \code{""} to match all possible values.
+  It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}.
+  Obviously, it is not sensible to mix negation with other specifications. \cr
+}
+See \code{\link{osm_point_polygon_class}} and \code{\link{osm_line_class}} for example classifications.}
+}
+\value{
+a \emph{data.table} with rows matching the input frame and columns
+ \item{classified}{logical. Whether the feature was classified i.e. matched by any tag-value in the \code{classification}. }
+ \item{main_cat}{character. The first category the feature was assigned to, depending on the order of categories in the \code{classification}. }
+ \item{main_tag}{character. The tag matched for the main category. }
+ \item{main_tag_value}{character. The value matched on. }
+ \item{alt_cats}{character. Alternative (secondary) categories assigned, comma-separated if multiple. }
+ \item{alt_tags_values}{character. The tags and double-quoted values matched for secondary categories, comma-separated if multiple.}
 }
 \description{
-Classify OSM Features
+Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification scheme.
 }
 \note{
-It is not necessary to expand the 'other_tags' column, e.g. using \code{\link{osm_tags_df}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
+It is not necessary to expand the 'other_tags' column, e.g. using \code{\link[=osm_tags_df]{osm_tags_df()}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
 }
 \examples{
-str(osm_line_class)
-str(osm_point_polygon_class)
+# See Examples at ?osmclass
+}
+\seealso{
+\link{osmclass-package}
 }

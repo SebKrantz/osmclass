@@ -16,4 +16,7 @@ Further tags that max be of interested to extract for OSM line features.
 \examples{
 collapse::unlist2d(osm_line_info_tags, idcols = "category")
 }
+\seealso{
+\link{osmclass-package}
+}
 \keyword{datasets}
