@@ -19,6 +19,9 @@ osm_classify(data, classification)
 \description{
 Classify OSM Features
 }
+\note{
+It is not necessary to expand the 'other_tags' column, e.g. using \code{\link{osm_tags_df}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
+}
 \examples{
 str(osm_line_class)
 str(osm_point_polygon_class)

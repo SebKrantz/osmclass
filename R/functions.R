@@ -191,6 +191,8 @@ which_tag_values <- function(tag_value, value) {
 #'   tags \tab a character vector of tag values to match on, or \code{""} to match all possible tag values.
 #'   It is also possible to match all except certain tags by negating them with \code{"!"} e.g. \code{"!no"}. \cr
 #' }
+#' @note
+#' It is not necessary to expand the 'other_tags' column, e.g. using \code{\link{osm_tags_df}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
 #' @examples
 #' str(osm_line_class)
 #' str(osm_point_polygon_class)
