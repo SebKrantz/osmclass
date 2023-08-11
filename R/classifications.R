@@ -5,15 +5,25 @@
 #### -------------------------------------------------------
 
 
-#' Functional Classification of OSM Points and Polygon Features
+#' A Classification of OSM Features by Economic Function
 #'
-#' A nested list proposing a classification of OSM point and polygons into 33 functional categories.
-#' It was developed to accurately classify OSM features in Africa, i.e. the tags and the order of categories in the list
-#' are optimized to assign the most sensible primary category to most features, see Krantz (2023).
+#' This classification, developed for Krantz (2023), aims to classify OSM features into meaningful and specific economic
+#' categories such as 'education', 'health', 'tourism', 'financial', 'shopping', 'transport', 'communications',
+#' 'industrial', 'residential', 'road', 'railway', 'pipeline', 'power', 'waterway' etc. Separate classifications
+#' are developed for points and polygons (buildings) (33 categories), and lines (11 categories), which should be applied to
+#' the respective layers of OSM PBF files, see \link{osmclass-package} for and example. The classification is optimized
+#' (in terms of tag choice and order of categories) to assign the most sensible primary category to most features in the Africa OSM.
 #'
+#' @references
+#' Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://ssrn.com/abstract=4537867
+#'
+#' @name classifications
 #' @seealso \link{osmclass-package}
 #' @examples
 #' collapse::unlist2d(osm_point_polygon_class, idcols = c("category", "tag"))
+#' collapse::unlist2d(osm_line_class, idcols = c("category", "tag"))
+#' # This list contains additional tags with information about lines (e.g. roads and railways)
+#' collapse::unlist2d(osm_line_info_tags, idcols = c("category", "tag"))
 #' @export
 'osm_point_polygon_class'
 
@@ -156,13 +166,7 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
 
 
 
-#' Functional Classification of OSM Line Features
-#'
-#' A nested list proposing a classification of OSM lines into 11 functional categories.
-#'
-#' @seealso \link{osmclass-package}
-#' @examples
-#' collapse::unlist2d(osm_line_class, idcols = c("category", "tag"))
+#' @rdname classifications
 #' @export
 'osm_line_class'
 
@@ -186,13 +190,7 @@ osm_line_class <- list(
 )
 
 
-#' Further tags of Interest for Line Features
-#'
-#' Further tags that max be of interested to extract for OSM line features.
-#'
-#' @seealso \link{osmclass-package}
-#' @examples
-#' collapse::unlist2d(osm_line_info_tags, idcols = "category")
+#' @rdname classifications
 #' @export
 'osm_line_info_tags'
 
