@@ -7,7 +7,7 @@
 \title{Classify Open Street Map Features}
 \description{
 An R package to classify Open Street Map (OSM) features into meaningful functional or analytical categories.
-It expects OSM PBF data, e.g. from https://download.geofabrik.de/, imported as \emph{sf} data frames, and
+It expects OSM PBF data, e.g. from https://download.geofabrik.de/, imported as data frames (e.g. using \emph{sf}), and
 is well optimized to deal with large quantities of OSM data. \cr\cr
 }
 \section{Functions}{
