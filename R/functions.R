@@ -2,7 +2,7 @@
 #'
 #' An R package to classify Open Street Map (OSM) features into meaningful functional or analytical categories.
 #' It expects OSM PBF data, e.g. from https://download.geofabrik.de/, imported as \emph{sf} data frames, and
-#' is well optimized to deal with large quantities of such data. \cr\cr
+#' is well optimized to deal with large quantities of OSM data. \cr\cr
 #'
 #' @section Functions:
 #' Main Function to Classify OSM Features
@@ -15,11 +15,14 @@
 #' \code{\link[=osm_tags_df]{osm_tags_df()}}\cr\cr
 #'
 #' @section Classifications:
-#' Suggested OSM Classification, developed for the Africa OSM Following Krantz (2023)
+#' A Classification of OSM Features by Economic Function, developed for the Africa OSM following Krantz (2023)
 #'
 #' \code{\link{osm_point_polygon_class}}\cr
 #' \code{\link{osm_line_class}}\cr
 #' \code{\link{osm_line_info_tags}}
+#'
+#' @references
+#' Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://ssrn.com/abstract=4537867
 #'
 #' @examples
 #' \dontrun{
@@ -64,6 +67,7 @@
 #' library(sf)
 #'
 #' # Get all Africa OSM (6 Gb)
+#' options(timeout = 6000)
 #' download.file("https://download.geofabrik.de/africa-latest.osm.pbf",
 #'               destfile = "africa-latest.osm.pbf", mode = "wb")
 #'
