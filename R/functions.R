@@ -200,9 +200,9 @@ which_tag_values <- function(tag_value, value) {
 
 #' Classify OSM Features
 #'
-#' Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification scheme.
+#' Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification.
 #' @param data imported layer from an OSM PBF file. Usually an 'sf' data frame, but the geometry column is unnecessary. Importantly, the data frame should have an 'other_tags' column with OSM PBF formatting.
-#' @param classification a 2-level nested list providing a classification scheme. The layers of the list are:
+#' @param classification a 2-level nested list providing a classification. The layers of the list are:
 #' \tabular{lll}{
 #'   \emph{categories} \tab\tab a list of tags and matched values that constitute a feature category. \cr\cr\cr
 #'   \emph{tags} \tab\tab a character vector of tag values to match, or \code{""} to match all possible values.

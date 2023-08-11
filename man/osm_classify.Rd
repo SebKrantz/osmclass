@@ -9,7 +9,7 @@ osm_classify(data, classification)
 \arguments{
 \item{data}{imported layer from an OSM PBF file. Usually an 'sf' data frame, but the geometry column is unnecessary. Importantly, the data frame should have an 'other_tags' column with OSM PBF formatting.}
 
-\item{classification}{a 2-level nested list providing a classification scheme. The layers of the list are:
+\item{classification}{a 2-level nested list providing a classification. The layers of the list are:
 \tabular{lll}{
   \emph{categories} \tab\tab a list of tags and matched values that constitute a feature category. \cr\cr\cr
   \emph{tags} \tab\tab a character vector of tag values to match, or \code{""} to match all possible values.
@@ -28,7 +28,7 @@ a \emph{data.table} with rows matching the input frame and columns
  \item{alt_tags_values}{character. The tags and double-quoted values matched for secondary categories, comma-separated if multiple.}
 }
 \description{
-Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification scheme.
+Classifies OSM features into meaningful functional or analytical categories, according to a supplied classification.
 }
 \note{
 It is not necessary to expand the 'other_tags' column, e.g. using \code{\link[=osm_tags_df]{osm_tags_df()}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
