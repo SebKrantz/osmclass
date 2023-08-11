@@ -22,7 +22,7 @@
 #' \code{\link{osm_line_info_tags}}
 #'
 #' @references
-#' Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://ssrn.com/abstract=4537867
+#' Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://www.ssrn.com/abstract=4537867
 #'
 #' @examples
 #' \dontrun{

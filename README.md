@@ -6,9 +6,9 @@
 [![R-CMD-check](https://github.com/SebKrantz/osmclass/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/SebKrantz/osmclass/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-Designed for OSM PBF files, e.g. from <https://download.geofabrik.de/>, imported as spatial data frames using `sf::st_read()`. A classification consists of a list of categories that are assigned to certain OSM tags and values, also specified as a list. Given a layer from an OSM PBF file and a classification, the main `osm_classify()` function returns a classification data frame giving, for each feature, the primary and alternative categories (if there is overlap) assigned, and the tag(s) and value(s) matched on. The package also contains a classification of OSM features by economic function, based on [Krantz (2023)](https://ssrn.com/abstract=4537867). 
+Designed for OSM PBF files, e.g. from <https://download.geofabrik.de/>, imported as spatial data frames using `sf::st_read()`. A classification consists of a list of categories that are assigned to certain OSM tags and values, also specified as a list. Given a layer from an OSM PBF file and a classification, the main `osm_classify()` function returns a classification data frame giving, for each feature, the primary and alternative categories (if there is overlap) assigned, and the tag(s) and value(s) matched on. The package also contains a classification of OSM features by economic function, based on [Krantz (2023)](https://www.ssrn.com/abstract=4537867). 
     
-Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://ssrn.com/abstract=4537867    
+Krantz, Sebastian, Mapping Africa’s Infrastructure Potential with Geospatial Big Data, Causal ML, and XAI (August 10, 2023). Available at SSRN: https://www.ssrn.com/abstract=4537867    
     
 
 
