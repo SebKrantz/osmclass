@@ -1,7 +1,7 @@
 Package: osmclass
 Type: Package
 Title: Classify Open Street Map Features
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Sebastian", "Krantz", role = c("aut", "cre"), 
                   email = "sebastian.krantz@graduateinstitute.ch")
 Description: Functions to classify Open Street Map (OSM) features into meaningful functional 
