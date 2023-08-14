@@ -4,14 +4,14 @@ Title: Classify Open Street Map Features
 Version: 0.1.1
 Authors@R: person("Sebastian", "Krantz", role = c("aut", "cre"), 
                   email = "sebastian.krantz@graduateinstitute.ch")
-Description: Functions to classify Open Street Map (OSM) features into meaningful functional 
+Description: Classify Open Street Map (OSM) features into meaningful functional 
     or analytical categories. Designed for OSM PBF files, e.g. from <https://download.geofabrik.de/> 
     imported as spatial data frames. A classification consists of a list of categories that are related to 
-    certain OSM tags and values, also specified as a list. Given a layer from an OSM PBF file and a 
-    classification, the main osm_classify() function returns a classification data table giving, 
-    for each feature, the primary and alternative categories (if there is overlap) assigned, and the tag(s) 
-    and value(s) matched on. The package also contains a classification of OSM features by 
-    economic function, based on Krantz (2023) <https://www.ssrn.com/abstract=4537867>.
+    certain OSM tags and values. Given a layer from an OSM PBF file and a classification, the main 
+    osm_classify() function returns a classification data table giving, for each feature, the primary and 
+    alternative categories (if there is overlap) assigned, and the tag(s) and value(s) matched on. 
+    The package also contains a classification of OSM features by economic function, 
+    following Krantz (2023) <https://www.ssrn.com/abstract=4537867>.
 License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.3.0)

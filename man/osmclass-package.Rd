@@ -33,6 +33,10 @@ A Classification of OSM Features by Economic Function, developed for the Africa 
 
 \examples{
 \dontrun{
+# Download OSM PBF file for Djibouti
+download.file("https://download.geofabrik.de/africa/djibouti-latest.osm.pbf",
+              destfile = "djibouti-latest.osm.pbf", mode = "wb")
+
 # Import OSM data for Djibouti
 library(sf)
 st_layers("djibouti-latest.osm.pbf")
@@ -66,7 +70,7 @@ str(other_point_tags)
 
 
 
-# TIPP: For larger OSM files, importing layers (esp. lines and polygons) at once
+# TIP: For larger OSM files, importing layers (esp. lines and polygons) at once
 # may not be feasible memory-wise. In this case, translating to GPKG and using
 # an SQL query for stepwise processing is helpful:
 
@@ -74,7 +78,7 @@ library(fastverse)
 library(sf)
 
 # Get all Africa OSM (6 Gb)
-options(timeout = 6000)
+opt <- options(timeout = 6000)
 download.file("https://download.geofabrik.de/africa-latest.osm.pbf",
               destfile = "africa-latest.osm.pbf", mode = "wb")
 
@@ -103,6 +107,7 @@ for (i in seq_len(length(int))) {
 
 # Combining
 lines_class <- rbindlist(lines_class)
+options(opt)
 }
 
 }
