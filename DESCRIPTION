@@ -1,7 +1,7 @@
 Package: osmclass
 Type: Package
 Title: Classify Open Street Map Features
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: person("Sebastian", "Krantz", role = c("aut", "cre"), 
                   email = "sebastian.krantz@graduateinstitute.ch")
 Description: Classify Open Street Map (OSM) features into meaningful functional 
@@ -10,7 +10,7 @@ Description: Classify Open Street Map (OSM) features into meaningful functional
     certain OSM tags and values. Given a layer from an OSM PBF file and a classification, the main 
     osm_classify() function returns a classification data table giving, for each feature, the primary and 
     alternative categories (if there is overlap) assigned, and the tag(s) and value(s) matched on. 
-    The package also contains a classification of OSM features by economic function, 
+    The package also contains a classification of OSM features by economic function/significance, 
     following Krantz (2023) <https://www.ssrn.com/abstract=4537867>.
 License: GPL-3
 Encoding: UTF-8
