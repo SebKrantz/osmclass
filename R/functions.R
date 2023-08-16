@@ -174,7 +174,8 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
 #' # See Examples at ?osmclass for full examples
 #'
 #' # Extracting tags of interest (some of which are inside 'other_tags')
-#' tags <- c("osm_id", "highway", "man_made", "name", "alt_name", "description", "wikidata", "amenity", "tourism")
+#' tags <- c("osm_id", "highway", "man_made", "name", "alt_name",
+#'           "description", "wikidata", "amenity", "tourism")
 #' head(osm_tags_df(djibouti_points, tags))
 #'
 #' # Only keeping tags with at least 5\% non-missing
