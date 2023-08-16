@@ -124,7 +124,18 @@ NULL
 #' @returns a list of tags as character vectors, or a nested list of tags and values if \code{values = TRUE}.
 #' @seealso \link{osmclass-package}
 #' @examples
-#' # See Examples at ?osmclass
+#' # See Examples at ?osmclass for full examples
+#'
+#' # Extract 'other_tags' as list
+#' other_tags <- osm_other_tags_list(djibouti_points$other_tags)
+#' other_tags[1:10]
+#'
+#' # Count frequency (showing top 10)
+#' sort(table(unlist(other_tags)), decreasing = TRUE)[1:10]
+#'
+#' # Also include values
+#' other_tags_values <- osm_other_tags_list(djibouti_points$other_tags, values = TRUE)
+#' other_tags_values[1:10]
 #'
 #' @export
 osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
@@ -160,7 +171,15 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
 #' @returns a \emph{data.table} with the supplied \code{tags} as columns, and the same number of rows as the input frame.
 #' @seealso \link{osmclass-package}
 #' @examples
-#' # See Examples at ?osmclass
+#' # See Examples at ?osmclass for full examples
+#'
+#' # Extracting tags of interest (some of which are inside 'other_tags')
+#' tags <- c("osm_id", "highway", "man_made", "name", "alt_name", "description", "wikidata", "amenity", "tourism")
+#' head(osm_tags_df(djibouti_points, tags))
+#'
+#' # Only keeping tags with at least 5\% non-missing
+#' head(osm_tags_df(djibouti_points, tags, na.prop = 0.05))
+#'
 #' @export
 osm_tags_df <- function(data, tags, na.prop = 0) {
   n <- fnrow(data)
@@ -228,7 +247,12 @@ which_tag_values <- function(tag_value, value) {
 #'  \item{alt_tags_values}{character. The tags and double-quoted values matched for secondary categories, comma-separated if multiple.}
 #' @seealso \link{osmclass-package}
 #' @examples
-#' # See Examples at ?osmclass
+#' # See Examples at ?osmclass for a full examples
+#'
+#' # Classify OSM Points in Djibouti
+#' djibouti_points_class <- osm_classify(djibouti_points, osm_point_polygon_class)
+#' head(djibouti_points_class)
+#' collapse::descr(djibouti_points_class)
 #' @export
 osm_classify <- function(data, classification) {
 

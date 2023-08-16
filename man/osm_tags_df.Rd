@@ -20,7 +20,15 @@ a \emph{data.table} with the supplied \code{tags} as columns, and the same numbe
 Extract Tags as Columns from an OSM PBF Layer
 }
 \examples{
-# See Examples at ?osmclass
+# See Examples at ?osmclass for full examples
+
+# Extracting tags of interest (some of which are inside 'other_tags')
+tags <- c("osm_id", "highway", "man_made", "name", "alt_name", "description", "wikidata", "amenity", "tourism")
+head(osm_tags_df(djibouti_points, tags))
+
+# Only keeping tags with at least 5\\% non-missing
+head(osm_tags_df(djibouti_points, tags, na.prop = 0.05))
+
 }
 \seealso{
 \link{osmclass-package}

@@ -22,7 +22,18 @@ a list of tags as character vectors, or a nested list of tags and values if \cod
 Generate a List from the 'other_tags' Column in OSM PBF Data
 }
 \examples{
-# See Examples at ?osmclass
+# See Examples at ?osmclass for full examples
+
+# Extract 'other_tags' as list
+other_tags <- osm_other_tags_list(djibouti_points$other_tags)
+other_tags[1:10]
+
+# Count frequency (showing top 10)
+sort(table(unlist(other_tags)), decreasing = TRUE)[1:10]
+
+# Also include values
+other_tags_values <- osm_other_tags_list(djibouti_points$other_tags, values = TRUE)
+other_tags_values[1:10]
 
 }
 \seealso{

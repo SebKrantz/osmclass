@@ -34,7 +34,12 @@ Classifies OSM features into meaningful functional or analytical categories, acc
 It is not necessary to expand the 'other_tags' column, e.g. using \code{\link[=osm_tags_df]{osm_tags_df()}}. \code{osm_classify()} efficiently searches the content of that column without expanding it.
 }
 \examples{
-# See Examples at ?osmclass
+# See Examples at ?osmclass for a full examples
+
+# Classify OSM Points in Djibouti
+djibouti_points_class <- osm_classify(djibouti_points, osm_point_polygon_class)
+head(djibouti_points_class)
+collapse::descr(djibouti_points_class)
 }
 \seealso{
 \link{osmclass-package}
