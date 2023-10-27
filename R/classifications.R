@@ -29,6 +29,7 @@
 
 
 osm_point_polygon_class_uo <- list(
+  port = list(landuse = "port"),
   food = list(amenity = .c(bar, cafe, fast_food, food_court, ice_cream, pub, restaurant)),
   shopping = list(amenity = .c(marketplace, shop), # TODO: distinguish bigger and smaller, formal vs. informal shopping??
                   shop = c("!no", "!vacant"), # All except generic statements (in those cases the primary feature is something else)
@@ -57,17 +58,19 @@ osm_point_polygon_class_uo <- list(
                    junction = "",
                    office = .c(logistics, moving_company),
                    man_made = .c(bridge, goods_conveyor),
-                   building = .c(train_station, transportation, bridge)),
+                   building = .c(train_station, transportation, bridge),
+                   landuse = "railway"),
   storage = list(man_made = .c(silo, storage_tank),
                  building = .c(hangar, storage_tank, silo), # hut, shed, : In Africa: huts and sheds are residential buildings... better exclude...
                  landuse = "depot"),
   communications = list(amenity = .c(internet_cafe, telephone),
                         telecom = "",
-                        communication ="", # regrex/startsWith(), e.g. communication:mobile_phone =
                         utility = "telecom",
                         man_made = .c(antenna, beacon, communication_tower, communications_tower, lighthouse, satellite_dish), # telescope
                         office = "telecommunication", # mast
-                        "tower:type" = .c(communication, telecommunication, radar, radio, radio_transmitter)),
+                        "tower:type" = .c(communication, telecommunication, radar, radio, radio_transmitter),
+                        communication = c("line", "pole", "mobile", "mobile_phone", "mobile_phone=yes") # could just contain phone numbers of businesses etc.  # regrex/startsWith(), e.g. communication:mobile_phone =
+  ),
   accommodation = list(tourism = .c(apartment, chalet, guest_house, hostel, hotel, motel, wilderness_hut), #, camp_pitch, camp_site
                        building = "hotel"),
   tourism = list(tourism = "!no", # All except generic statements (in those cases the primary feature is something else)
@@ -81,10 +84,10 @@ osm_point_polygon_class_uo <- list(
   industrial = list(industrial = "", # TODO: Check effects...
                     man_made = .c(kiln, works), # kiln might be too small...
                     building = "industrial",
-                    landuse = .c(industrial, port, railway)), # TODO: Port and railway not transport? But OSM suggests to declare it an industrial area.),
+                    landuse = "industrial"), # TODO: Port and railway not transport? But OSM suggests to declare it an industrial area.),
   mining = list(man_made = .c(adit, mineshaft, petroleum_well, tailings_pond),
                 landuse = "quarry"),
-  commerical = list(building = "commercial",  # Could also be shops / malls etc. this is not a very specific tag...
+  commercial = list(building = "commercial",  # Could also be shops / malls etc. this is not a very specific tag...
                     landuse = "commercial"),  # Predominantly commercial businesses and their offices.
   construction = list(# man_made = "crane", # A stationary, permanent crane. So not really for construction...
                       building = "construction", # TODO: save start_date: The (approximated) date when the building was finished!!!
@@ -111,7 +114,7 @@ osm_point_polygon_class_uo <- list(
                   building = .c(cathedral, chapel, church, kingdom_hall, monastery, mosque, presbytery, shrine, synagogue, temple, religious),
                   office = "religion",
                   landuse = "religious",
-                  religion = "",
+                  religion = c("!no", "!none"),
                   denomination = ""),
   institutional = list(office = .c(government, ngo, association, diplomatic, political_party),
                        building = "government",
@@ -145,7 +148,7 @@ osm_point_polygon_class_uo <- list(
 
 # Ordering according to tag priorities... and likelihood of duplicate matches
 osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
-                                 military, craft,
+                                 port, military, craft,
                                  education, education_alt,
                                  health,
                                  farming, mining, industrial,
@@ -158,7 +161,7 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
                                  residential, historic, # Todo: historic earlier ? e.g. historic mines etc.. needs to be after tourism though.. and historic mines may also be useful for economic development
                                  waste,
                                  office_other,
-                                 commerical,
+                                 commercial,
                                  power, utilities_other, # Power needs to be matched late because some offices are generated by power = generator etc.
                                  recreation,
                                  facilities,
