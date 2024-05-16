@@ -2,3 +2,7 @@
 ^\.Rproj\.user$
 ^LICENSE$
 ^\.github$
+^djibouti-latest\.osm\.pbf$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
