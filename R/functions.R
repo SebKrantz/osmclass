@@ -103,7 +103,6 @@
 #' options(opt)
 #'}
 #'
-#' @docType _PACKAGE
 #' @name osmclass-package
 #' @aliases osmclass
 #'
