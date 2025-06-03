@@ -4,11 +4,14 @@
 \name{classifications}
 \alias{classifications}
 \alias{osm_point_polygon_class}
+\alias{osm_point_polygon_class_det}
 \alias{osm_line_class}
 \alias{osm_line_info_tags}
-\title{A Classification of OSM Features by Economic Function}
+\title{Classification of OSM Features by Economic Function}
 \format{
-An object of class \code{list} of length 33.
+An object of class \code{list} of length 34.
+
+An object of class \code{list} of length 55.
 
 An object of class \code{list} of length 11.
 
@@ -17,17 +20,25 @@ An object of class \code{list} of length 11.
 \usage{
 osm_point_polygon_class
 
+osm_point_polygon_class_det
+
 osm_line_class
 
 osm_line_info_tags
 }
 \description{
-This classification, developed for Krantz (2023), aims to classify OSM features into meaningful and specific economic
+A classification of OSM features by economic function. A newer detailed version is available for points and polygons.
+}
+\details{
+The simple classification, developed for Krantz (2023), aims to classify OSM features into meaningful and specific economic
 categories such as 'education', 'health', 'tourism', 'financial', 'shopping', 'transport', 'communications',
 'industrial', 'residential', 'road', 'railway', 'pipeline', 'power', 'waterway' etc. Separate classifications
 are developed for points and polygons (buildings) (33 categories), and lines (11 categories), which should be applied to
 the respective layers of OSM PBF files, see \link{osmclass-package} for and example. The classification is optimized
 (in terms of tag choice and order of categories) to assign the most sensible primary category to most features in the Africa OSM.
+
+In spring 2025, I added a more detailed classification with 55 categories (\code{osm_point_polygon_class_det}) for point and polygon-based features,
+approximately reflecting an extended database used in the November 2024 update of the article where OSM features are combined with other geospatial data sources.
 }
 \examples{
 collapse::unlist2d(osm_point_polygon_class, idcols = c("category", "tag"))
