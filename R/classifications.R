@@ -192,7 +192,7 @@ osm_point_polygon_class_det_uo <- list(
     craft = "bakery", # No shop, could be wholesale
     amenity = c("marketplace", "shop"),
     shop = c("convenience", "kiosk", "clothes", "supermarket", "bakery", "butcher", "greengrocer", "beverages",
-             "department_store", "shopping_centre", "mall", "general", "general_store", "local_shop", "grocery", "yes"), # yes is very general, but mostly grocery shops
+             "department_store", "shopping_centre", "mall", "general", "general_store", "local_shop", "grocery"), # yes is very general, but mostly grocery shops
     building = c("supermarket", "kiosk")
   ),
   craft = list(craft = ""),
@@ -258,14 +258,14 @@ osm_point_polygon_class_det_uo <- list(
     shop = "bicycle",
     highway = "cycleway" # cycleway = ""? -> can be used in conjunction with other highway types if cycleway is next to road
   ),
-  public_transport = list(
-    public_transport = "", # all: could make separate category...
-    amenity = "bus_station",
-    office = "public_transport"
-  ),
   water_transport = list(
     amenity = "ferry_terminal",
     waterway = c("dam", "weir", "lock_gate", "boatyard", "dock", "fuel", "canal", "river")
+  ),
+  public_transport = list(
+    public_transport = "!no", # all: could make separate category...
+    amenity = "bus_station",
+    office = "public_transport"
   ),
   transport_infrastructure = list(
     aerialway = "!no", # all except no
@@ -305,7 +305,7 @@ osm_point_polygon_class_det_uo <- list(
   ),
   communications_other = list(
     amenity = c("telephone", "internet_cafe", "studio"),
-    # man_made = c("lighthouse", "telescope", "observatory", "surveillance"),
+    # man_made = c("lighthouse", "telescope", "observatory", "surveillance"), # Lots of sorveillance cameras. ignore?
     office = c("telecommunication", "telecom", "radio_station", "newspaper",
                "radio_chretienne", "communication_agency", "telecommunications", "communication")
   ),
