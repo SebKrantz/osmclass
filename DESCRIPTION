@@ -1,7 +1,7 @@
 Package: osmclass
 Type: Package
 Title: Classify Open Street Map Features
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: person("Sebastian", "Krantz", role = c("aut", "cre"), 
                   email = "sebastian.krantz@graduateinstitute.ch")
 Description: Classify Open Street Map (OSM) features into meaningful functional 
@@ -16,6 +16,6 @@ License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.3.0)
 Imports: collapse (>= 1.9.6), data.table, stringi
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2
 LazyData: true
 URL: https://sebkrantz.github.io/osmclass/
