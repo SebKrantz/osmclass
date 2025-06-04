@@ -318,12 +318,12 @@ osm_point_polygon_class_det_uo <- list(
     tourism = c("museum", "gallery", "aquarium", "monument", "gallery_museum")
   ),
   parks_and_nature = list(
-    leisure = c("nature_reserve", "park", "water_park", "garden", "playground", "marina"),
+    leisure = c("nature_reserve", "park", "water_park", "garden", "playground", "marina", "recreation_ground", "schoolyard"),
     tourism = c("nature", "theme_park", "zoo", "bird_watching_and_fishing", "wetland", "bird_sanctuary"),
     landuse = "recreation_ground"
   ),
   beaches_and_resorts = list(
-    leisure = "beach_resort",
+    leisure = c("beach_resort", "resort"),
     tourism = c("resort", "beach", "spa_resort", "holiday_resort")
   ),
   outdoor_activities = list(
@@ -355,8 +355,8 @@ osm_point_polygon_class_det_uo <- list(
               "billiards", "snooker", "10pin_billiards", "table_soccer_darts_billiards", "billiards_snooker_soccer")
   ),
   sports = list(
-    building = c("stadium", "grandstand", "pavilion", "sports_hall", "riding_hall"),
-    leisure = c("stadium", "sports_centre", "pitch", "track", "swimming_pool", "fitness_centre", "fitness_station"),
+    building = c("stadium", "grandstand", "pavilion", "sports_hall", "riding_hall", "sports_centre"),
+    leisure = c("stadium", "sports_centre", "pitch", "track", "swimming_pool", "fitness_centre", "fitness_station", "golf_course", "sports_hall"),
     office = "sports",
     shop = "sports",
     sport = "!no" # rest (all others not used in outdoor_activities and gaming)
@@ -387,7 +387,7 @@ osm_point_polygon_class_det_uo <- list(
                 landuse = c("quarry", "salt_pond")),
   industrial = list(industrial = "", # Should be after all other uses of this tag, and before craft to ensure things that remain in craft are not industrial.
                     man_made = .c(kiln, works), # kiln might be too small...
-                    building = "industrial",
+                    building = c("industrial", "manufacture"),
                     landuse = "industrial"), # TODO: Port and railway not transport? But OSM suggests to declare it an industrial area.),
   commercial = list(office = c("company", "yes", "commercial", "office", "building", "private"), # Also match last, after institutional etc.
                     building = c("commercial", "office"), # Could also be shops / malls etc. this is not a very specific tag...
@@ -409,7 +409,7 @@ osm_point_polygon_class_det_uo <- list(
   religion = list(amenity = .c(funeral_hall, grave_yard, monastery, place_of_mourning, place_of_worship),
                   building = .c(cathedral, chapel, church, kingdom_hall, monastery, mosque, presbytery, shrine, synagogue, temple, religious),
                   office = c("religion", "church", "parish"), # Parish is mostly religion...
-                  landuse = "religious",
+                  landuse = c("religious", "cemetery"),
                   religion = c("!no", "!none"),
                   denomination = ""),
   professional_services = list(
