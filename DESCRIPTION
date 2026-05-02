@@ -16,6 +16,6 @@ License: GPL-3
 Encoding: UTF-8
 Depends: R (>= 3.3.0)
 Imports: collapse (>= 1.9.6), data.table, stringi
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 LazyData: true
 URL: https://sebkrantz.github.io/osmclass/
