@@ -40,7 +40,7 @@ osm_point_polygon_class_uo <- list(
                   shop = c("!no", "!vacant"), # All except generic statements (in those cases the primary feature is something else)
                   building = .c(retail, kiosk, supermarket, warehouse),
                   landuse = "retail"), # .c(department_store, mall, supermarket, wholesale)
-  craft = list(craft = ""),
+  craft = list(craft = "", shop = "locksmith"),
   education = list(amenity = .c(college, school, university),
                    building = .c(college, school, university),
                    landuse = "education"),
@@ -177,6 +177,9 @@ osm_point_polygon_class = colorder(osm_point_polygon_class_uo,
 #' @export
 'osm_point_polygon_class_det'
 
+
+# See also: https://github.com/VU-IVM/DamageScanner/blob/DS1.0/src/damagescanner/osm.py
+
 osm_point_polygon_class_det_uo <- list(
   port = list(
     industrial = c("port", "port_yard", "harbour", "container_terminal"), # Before industrial category because port is also landuse = "industrial" combined with industrial = "port".
@@ -184,18 +187,18 @@ osm_point_polygon_class_det_uo <- list(
     "seamark:type" = "harbour",
     landuse = "port"
   ),
-  drinking = list(amenity = .c(bar, pub)),
-  food = list(amenity = .c(fast_food, food_court, cafe, ice_cream, restaurant),
+  drinking = list(amenity = .c(cafe, bar, pub)),
+  food = list(amenity = .c(fast_food, food_court, ice_cream, restaurant),
               tourism = "restaurant",
               shop = c("restaurant", "ice_cream")),
   shopping_essential = list(
     craft = "bakery", # No shop, could be wholesale
     amenity = c("marketplace", "shop"),
-    shop = c("convenience", "kiosk", "clothes", "supermarket", "bakery", "butcher", "greengrocer", "beverages",
-             "department_store", "shopping_centre", "mall", "general", "general_store", "local_shop", "grocery"), # yes is very general, but mostly grocery shops
+    shop = c("convenience", "kiosk", "clothes", "supermarket", "bakery", "butcher", "cheese_shop", "cheese", "dairy", "greengrocer", "beverages", "drug_store", "drugstore", # Don't exist in Wiki but are used
+             "department_store", "shopping_centre", "mall", "general", "general_store", "local_shop", "grocery", "farm", "food"), # yes is very general, but mostly grocery shops
     building = c("supermarket", "kiosk")
   ),
-  craft = list(craft = ""),
+  craft = list(craft = "", shop = "locksmith"),
   beauty = list(
     craft = c("wellness", "hairdresser"),
     shop = c("hairdresser", "beauty", "cosmetics")
@@ -315,7 +318,7 @@ osm_point_polygon_class_det_uo <- list(
                        building = "hotel"),
   museums = list(
     amenity = "planetarium",
-    tourism = c("museum", "gallery", "aquarium", "monument", "gallery_museum")
+    tourism = c("museum", "gallery", "art_gallery", "aquarium", "monument", "gallery_museum")
   ),
   parks_and_nature = list(
     leisure = c("nature_reserve", "park", "water_park", "garden", "playground", "marina", "recreation_ground", "schoolyard"),
@@ -365,7 +368,7 @@ osm_point_polygon_class_det_uo <- list(
     amenity = c(
       "events_venue", "exhibition_centre", "conference_centre", "public_bath", # TODO: commercial??
       "public_bookcase", "social_centre",
-      "toilets", "refugee_site", "shelter", "childcare", "dressing_room", "bbq",
+      "toilets", "refugee_site", "shelter", "dressing_room", "bbq",
       "shower", "kitchen", "drinking_water", "fountain", "vending_machine",
       "watering_place", "bench", "water_point", "parcel_locker", "clock",
       "give_box", "photo_booth"
@@ -429,7 +432,7 @@ osm_point_polygon_class_det_uo <- list(
                "emplyment_agency",  "wedo_business_solutions", "publisher", "courier")
   ),
   home_services = list(
-    amenity = "crematorium",
+    amenity = c("crematorium", "childcare"),
     craft = c("caterer", "gardener", "gardening", "cleaning", "building_maintenance", "signmaker", "pest_control", "sweep"),
     office = c("event_management", "interior_design", "wedding_planner", "estate_agency", "estate_agent", "estate", "security"),
     shop = c("dry_cleaning", "laundry", "funeral_directors")
