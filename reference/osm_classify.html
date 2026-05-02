@@ -50,9 +50,9 @@
 
 
 <dt id="arg-classification">classification<a class="anchor" aria-label="anchor" href="#arg-classification"></a></dt>
-<dd><p>a 2-level nested list providing a classification. The layers of the list are:</p><table class="table table"><tr><td><em>categories</em></td><td></td><td>a list of tags and matched values that constitute a feature category.</td></tr><tr><td><em>tags</em></td><td></td><td>a character vector of tag values to match, or <code>""</code> to match all possible values.
+<dd><p>a 2-level nested list providing a classification. The layers of the list are:</p><table class="table table"><tr><td><em>categories</em></td><td></td><td>a list of tags and matched values that constitute a feature category.</td></tr><tr><td></td><td></td><td><em>tags</em></td></tr><tr><td></td><td>a character vector of tag values to match, or <code>""</code> to match all possible values.
   It is also possible to match all except certain tags by negating them with <code>"!"</code> e.g. <code>"!no"</code>.
-  Obviously, it is not sensible to mix negation with other specifications.</td></tr></table><p>See <code><a href="classifications.html">osm_point_polygon_class</a></code> and <code><a href="classifications.html">osm_line_class</a></code> for example classifications.</p></dd>
+  Obviously, it is not sensible to mix negation with other specifications.</td><td></td></tr></table><p>See <code><a href="classifications.html">osm_point_polygon_class</a></code> and <code><a href="classifications.html">osm_line_class</a></code> for example classifications.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -101,7 +101,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4:       TRUE transport  highway traffic_signals     &lt;NA&gt;            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5:       TRUE transport  highway traffic_signals     &lt;NA&gt;            &lt;NA&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6:      FALSE      &lt;NA&gt;     &lt;NA&gt;            &lt;NA&gt;     &lt;NA&gt;            &lt;NA&gt;</span>
-<span class="r-in"><span><span class="fu">collapse</span><span class="fu">::</span><span class="fu"><a href="https://sebkrantz.github.io/collapse/reference/descr.html" class="external-link">descr</a></span><span class="op">(</span><span class="va">djibouti_points_class</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">collapse</span><span class="fu">::</span><span class="fu"><a href="https://fastverse.org/collapse/reference/descr.html" class="external-link">descr</a></span><span class="op">(</span><span class="va">djibouti_points_class</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Dataset: djibouti_points_class, 6 Variables, N = 8608</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> --------------------------------------------------------------------------------</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> classified (logical): </span>
