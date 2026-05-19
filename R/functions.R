@@ -195,6 +195,7 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
 #'
 #' @export
 osm_other_tags_str <- function(x, exclude = character(0), split = '","|"=>"', ...) {
+  if(is.factor(x)) x <- as.character(x)
   if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
   if(!is.character(exclude)) stop("exclude needs to be a character vector")
   xx <- substr(x, 2L, vlengths(x) %-=% 1L)
