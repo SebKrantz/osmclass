@@ -1,8 +1,8 @@
 pandoc: 3.8.3
-pkgdown: 2.1.1.9000
-pkgdown_sha: 10fc372f325b1ce7cbcd0d9aedc4f2519f30a81d
+pkgdown: 2.2.0.9000
+pkgdown_sha: 6201e9a248442db0103442979a0fad7042e0a329
 articles: {}
-last_built: 2026-05-02T19:24Z
+last_built: 2026-06-18T23:47Z
 urls:
   reference: https://sebkrantz.github.io/osmclass/reference
   article: https://sebkrantz.github.io/osmclass/articles
