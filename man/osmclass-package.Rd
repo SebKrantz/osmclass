@@ -18,6 +18,7 @@ Main Function to Classify OSM Features
 Auxiliary Functions to Extract Information (Tags) from OSM PBF Layers
 
 \code{\link[=osm_other_tags_list]{osm_other_tags_list()}}\cr
+\code{\link[=osm_other_tags_str]{osm_other_tags_str()}}\cr
 \code{\link[=osm_tags_df]{osm_tags_df()}}\cr\cr
 }
 

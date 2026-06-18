@@ -12,5 +12,11 @@ template:
     code-color: "#004573" # "#9c0027" # "#004d80" # b3002d
     gray-dark: "#3f464d"
 
+navbar:
+  right:
+    - icon: fa-github
+      href: https://github.com/SebKrantz/osmclass
+      aria-label: GitHub
+
 development:
   mode: auto

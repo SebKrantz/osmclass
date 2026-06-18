@@ -12,6 +12,7 @@
 #' Auxiliary Functions to Extract Information (Tags) from OSM PBF Layers
 #'
 #' \code{\link[=osm_other_tags_list]{osm_other_tags_list()}}\cr
+#' \code{\link[=osm_other_tags_str]{osm_other_tags_str()}}\cr
 #' \code{\link[=osm_tags_df]{osm_tags_df()}}\cr\cr
 #'
 #' @section Classifications:
@@ -138,6 +139,7 @@ NULL
 #'
 #' @export
 osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
+  if(is.factor(x)) x <- as.character(x)
   if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
   if(values) {
     xx = substr(x, 2L, vlengths(x) %-=% 1L)
@@ -161,6 +163,61 @@ osm_other_tags_list <- function(x, values = FALSE, split = '","|"=>"', ...) {
   }
   return(res)
 }
+
+#' Extract Remaining 'other_tags' as Comma-Separated Strings
+#'
+#' Parses the 'other_tags' column from an imported OSM PBF file and reformats it
+#' as a comma-separated \code{key:"value"} string per feature, optionally
+#' dropping a set of tag keys. The intended use is to preserve OSM tags not
+#' already captured by \code{\link[=osm_classify]{osm_classify()}}: pass the
+#' classification's tag keys via \code{exclude} so they are not duplicated in
+#' \code{main_tag}, \code{main_tag_value}, and \code{alt_tags_values}.
+#'
+#' @param x character. The 'other_tags' column of an imported osm.pbf file.
+#' @param exclude character. Tag keys to drop from the output. Default \code{character(0)}.
+#' @param split character. Pattern passed to \code{\link{strsplit}} to split up \code{x}.
+#' @param \dots further arguments to \code{\link{strsplit}}.
+#'
+#' @returns a character vector of the same length as \code{x}, with each
+#'   element a comma-separated string of \code{key:"value"} pairs, or
+#'   \code{NA_character_} if no tags remain after exclusion (or the input was
+#'   missing/empty).
+#' @seealso \code{\link{osm_other_tags_list}}, \code{\link{osm_classify}}, \link{osmclass-package}
+#' @examples
+#' # See Examples at ?osmclass for full examples
+#'
+#' # Reformat all other_tags as key:"value" strings
+#' head(osm_other_tags_str(djibouti_points$other_tags))
+#'
+#' # Drop tag keys used by the classification (already captured in
+#' # 'main_tag'/'alt_tags_values' returned by osm_classify())
+#' used_tags <- unique(unlist(lapply(osm_point_polygon_class, names)))
+#' head(osm_other_tags_str(djibouti_points$other_tags, exclude = used_tags))
+#'
+#' @export
+osm_other_tags_str <- function(x, exclude = character(0), split = '","|"=>"', ...) {
+  if(is.factor(x)) x <- as.character(x)
+  if(!is.character(x)) stop("x needs to be an 'other_tags' column with OSM PBF formatting")
+  if(!is.character(exclude)) stop("exclude needs to be a character vector")
+  xx <- substr(x, 2L, vlengths(x) %-=% 1L)
+  x_spl <- strsplit(xx, split, ...)
+  has_exclude <- length(exclude) > 0L
+  vapply(x_spl, function(p) {
+    n <- length(p)
+    if(n == 0L || (n == 1L && is.na(p))) return(NA_character_)
+    ind <- 1L:(n/2L) * 2L
+    keys <- p[ind - 1L]
+    vals <- p[ind]
+    if(has_exclude) {
+      keep <- !(keys %chin% exclude)
+      if(!any(keep)) return(NA_character_)
+      keys <- keys[keep]
+      vals <- vals[keep]
+    }
+    paste0(keys, ':"', vals, '"', collapse = ", ")
+  }, character(1L), USE.NAMES = FALSE)
+}
+
 
 #' Extract Tags as Columns from an OSM PBF Layer
 #' @param data an imported layer from an OSM PBF file. Usually has a few important tags already expanded as columns, and an 'other_tags' column which compounds less frequent tags as character strings.
